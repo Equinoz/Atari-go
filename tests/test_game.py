@@ -15,14 +15,14 @@ class TestGame:
 	GAME.board[10] = ['.', '.', 'B', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
 	GAME.board[11] = ['.', '.', '.', '.', '.', 'W', '.', '.', 'W', '.', '.', '.', '.']
 
-	def add_stone(self):
-		GAME.add_stone('b', (7, 6))
-		GAME.add_stone('w', (7, 2))
-		assert GAME.board[7] == ['.', '.', 'W', '.', '.', '.', 'B', '.', '.', '.', '.', '.', '.']
+	def test_add_stone(self):
+		self.GAME.add_stone('b', (6, 7))
+		self.GAME.add_stone('w', (2, 7))
+		assert self.GAME.board[7] == ['.', '.', 'W', '.', '.', '.', 'B', '.', '.', '.', '.', '.', '.']
 
-	def remove_group(self):
-		stones_position = list((6, 6), (6, 7), (7, 6), (8, 5), (8, 6))
-		GAME.remove_group(stones_position)
-		assert GAME.board[6] == ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
-		assert GAME.board[7] == ['.', '.', 'W', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
-		assert GAME.board[8] == ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
+	def test_remove_group(self):
+		stones_position = [(6, 6), (7, 6), (6, 7), (5, 8), (6, 8)]
+		self.GAME.remove_group(stones_position)
+		assert self.GAME.board[6] == ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
+		assert self.GAME.board[7] == ['.', '.', 'W', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
+		assert self.GAME.board[8] == ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
