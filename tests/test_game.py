@@ -7,6 +7,7 @@ from game import Game
 
 class TestGame:
 	GAME = Game(13)
+	# Simulation d'une partie en cours
 	GAME.board[2] = ['.', '.', '.', '.', 'W', '.', '.', '.', '.', '.', 'W', '.', '.']
 	GAME.board[3] = ['.', '.', 'B', '.', '.', '.', '.', 'W', '.', '.', '.', '.', '.']
 	GAME.board[6] = ['.', '.', '.', '.', '.', '.', 'B', 'B', '.', '.', '.', '.', '.']
