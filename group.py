@@ -8,16 +8,29 @@ class Group:
 		self.game = game
 		self.color = color
 		self.stones = stones
+		# On met à jour le plateau de jeu en ajoutant la nouvelle pierre, dont les coordonnées sont dans le premier tuple de "stones"
+		self.game.add_stone(self.color, self.stones[0])
 		self.liberties = self.__count_liberties()
 		self.state = self.__evaluate_state()
 
 	def __count_liberties(self):
-		# self.game, self.stones...
-		pass
+		# Utilisation d'un set pour recenser les cases adjacentes vides en évitant les doublons
+		free_points = set()
+		for stone in self.stones:
+			x, y = stone
+			# On vérifie que la pierre ne se situe pas sur un bord pour tester la case adjacente concernée
+			if x > 0 and self.game.board[y][x-1] == '.':
+				free_points.add((x-1, y))
+			if x < self.game.size - 1 and self.game.board[y][x+1] == '.':
+				free_points.add((x+1, y))
+			if y > 0 and self.game.board[y-1][x] == '.':
+				free_points.add((x, y-1))
+			if y < self.game.size - 1 and self.game.board[y+1][x] == '.':
+				free_points.add((x, y+1))
+		return len(free_points)
 
 	def __evaluate_state(self):
 		""" Définition des différents états du groupe
-				5: pas de contact avec les pierres adverses
 				4: au moins deux fois plus de libertés que de pierres composant le groupe
 				3: entre deux fois et une fois plus de libertés que de pierres composant le groupe
 				2: moins de libertés que de pierres composant le groupe
@@ -25,4 +38,14 @@ class Group:
 				0: groupe capturé
 
 		"""
-		pass
+		if self.liberties == 0:
+			return 0
+		elif self.liberties == 1:
+			return 1
+		ratio = self.liberties / len(self.stones)
+		if ratio < 1:
+			return 2
+		if ratio >= 1 and ratio <= 2:
+			return 3
+		if ratio > 2:
+			return 4
