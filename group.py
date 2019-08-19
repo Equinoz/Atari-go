@@ -1,3 +1,5 @@
+from functions import examine_adjacent_points
+
 class Group:
 	""" Reçoit une partie "game", une couleur et une liste de coordonnées de pierres et initialise un groupe de pierres
 	Attributs: "game" la partie où se constituent les groupes, "color" la couleur du groupe, "stones" la liste des coordonnées des pierres le composant, "liberties" le nombre de libertés dont le groupe dispose et "state" un indice de 0 à 5 indiquant la bonne santé du groupe
@@ -17,16 +19,9 @@ class Group:
 		# Utilisation d'un set pour recenser les cases adjacentes vides en évitant les doublons
 		free_points = set()
 		for stone in self.stones:
-			x, y = stone
-			# On vérifie que la pierre ne se situe pas sur un bord pour tester la case adjacente concernée
-			if x > 0 and self.game.board[y][x-1] == '.':
-				free_points.add((x-1, y))
-			if x < self.game.size - 1 and self.game.board[y][x+1] == '.':
-				free_points.add((x+1, y))
-			if y > 0 and self.game.board[y-1][x] == '.':
-				free_points.add((x, y-1))
-			if y < self.game.size - 1 and self.game.board[y+1][x] == '.':
-				free_points.add((x, y+1))
+			adjacent_liberties = examine_adjacent_points(self.game, '.', stone)
+			for liberty in adjacent_liberties:
+				free_points.add(liberty)
 		return len(free_points)
 
 	def __evaluate_state(self):
