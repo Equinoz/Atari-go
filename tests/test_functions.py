@@ -20,10 +20,7 @@ group1_w = Group(game, 'w', group3)
 group2_w = Group(game, 'w', group4)
 
 groups = set()
-groups.add(group1_b)
-groups.add(group2_b)
-groups.add(group1_w)
-groups.add(group2_w)
+groups.update([group1_b, group2_b, group1_w, group2_w])
 
 for group in groups:
 	for stone in group.stones:
@@ -50,8 +47,8 @@ def test_has_liberties():
 	assert has_liberties((6, 6)) == True
 
 def test_has_groups():
-	assert has_groups('b', (4, 3)) == set(group1_b)
-	assert has_groups('b', (4, 5)) == set(group1_b, group2_b)
-	assert has_groups('b', (6, 4)) == set(group1_b)
-	assert has_groups('w', (4, 3)) == set(group1_w, group2_w)
-	assert has_groups('w', (4, 5)) == set()
+	assert has_groups('b', (4, 3)) == {group1_b}
+	assert has_groups('b', (4, 5)) == {group1_b, group2_b}
+	assert has_groups('b', (6, 4)) == {group1_b}
+	assert has_groups('w', (4, 3)) == {group1_w, group2_w}
+	assert has_groups('w', (4, 5)) == {}
