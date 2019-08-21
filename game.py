@@ -6,13 +6,8 @@ class Game:
 	"""
 	def __init__(self, size):
 		self.size = size
-		self.board = list()
 		# On initialise le nouveau board composé uniquement d'intersections vides dans un premier temps
-		for i in range(self.size):
-			row = list()
-			for j in range(self.size):
-				row.append('.')
-			self.board.append(row)
+		self.board = [['.'] * self.size for i in range(self.size)]
 				
 	def add_stone(self, color, position):
 		if color == 'b':
@@ -29,6 +24,6 @@ class Game:
 		printed_board = ""
 		for line in self.board:
 			for chara in line:
-				printed_board += chara + " "
+				printed_board += " " + chara
 			printed_board += "\n"
 		return printed_board

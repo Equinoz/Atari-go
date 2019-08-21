@@ -12,39 +12,57 @@ game = Game(13)
 groups = set()
 player = 'b'
 
-print("Ok")
-# Initialisation d'un plateau et de groupes pour tester les fonctions
-game = Game(9)
-group1 = [(5, 3), (4, 4), (5, 4), (5, 5)]
-group2 = [(3, 6), (4, 6)]
-group3 = [(7, 8), (8, 8)]
-group4 = [(4, 2), (5, 2)]
-group5 = [(3, 3), (3, 4)]
-group6 = [(7, 7), (8, 7)]
-
-groups_b = [group1, group2, group3]
-groups_w = [group4, group5, group6]
-
-for group in groups_b:
-	for stone in group:
-		game.add_stone('b', stone)
-
-for group in groups_w:
-	for stone in group:
-		game.add_stone('w', stone)
-
-group1_b = Group(game, 'b', group1)
-group2_b = Group(game, 'b', group2)
-group3_b = Group(game, 'b', group3)
-group1_w = Group(game, 'w', group4)
-group2_w = Group(game, 'w', group5)
-group3_w = Group(game, 'w', group6)
-
-groups = set()
-groups.update([group1_b, group2_b, group3_b, group1_w, group2_w, group3_w])
-
+print("\n")
 print(game)
 
-# Vérificateur de groupes
-for index, group in enumerate(groups):
-	print("Groupe {}: couleur: {}, pierres: {}, libertées: {}, état: {}".format(index, group.color, group.stones, group.liberties, group.state))
+while game_running:
+	valid_move = False
+	while not valid_move:
+		x = y = -1
+		while (x < 0 or x >= game.size) or (y < 0 or y >= game.size):
+			print("\nAu tour du joueur {}:\n".format(player))
+			x = int(input("x = "))
+			y = int(input("y = "))
+		position = x, y
+
+		if point_is_empty(game, position):
+			adjacent_groups = has_groups(game, groups, player, position)
+			liberties = has_liberties(game, position)
+
+			if not adjacent_groups and liberties:
+				stone = [position]
+				groups.add(Group(game, player, stone))
+				valid_move = True
+
+			elif adjacent_groups and (not_in_atari(adjacent_groups) or liberties):
+				stones = [position]
+				for group in adjacent_groups:
+					stones.extend(group.stones)
+					groups.remove(group)
+				groups.add(Group(game, player, stones))
+				valid_move = True
+
+			else:
+				print("Suicide, coup interdit!\n")
+
+		else:
+			print("Cette case est déjà occupée par une autre pierre\n")
+
+	for group in groups:
+		if group.state == 0:
+			game.remove_group(group.stones)
+			print("Le joueur {} a gagné!".format(player))
+			game_running = False
+
+	print(game)
+
+	# Vérificateur de groupes
+	print("\n")
+	for index, group in enumerate(groups):
+		print("Groupe {}: couleur: {}, pierres: {}, libertées: {}, état: {}".format(index + 1, group.color, group.stones, group.liberties, group.state))
+	print("\n")
+
+	if player == 'b':
+		player = 'w'
+	else:
+		player = 'b'
