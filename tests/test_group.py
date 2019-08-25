@@ -18,11 +18,8 @@ class TestGroup:
 	GAME.add_stone('w', (1, 4))
 	GAME.add_stone('w', (2, 6))
 	GAME.add_stone('w', (2, 7))
-
 	GROUP = Group(GAME, 'b', stones_position)
 
-	def test__count_liberties(self):
-		assert self.GROUP.liberties == 4
-
-	def test__evaluate_state(self):
+	def test_update_state(self):
+		self.GROUP.update_state(self.GAME)
 		assert self.GROUP.state == 2

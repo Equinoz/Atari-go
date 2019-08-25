@@ -53,6 +53,16 @@ def has_groups(game, groups, color, position):
 				adjacent_groups.add(group)
 	return adjacent_groups
 
+def in_atari(groups):
+	""" Vérifie dans un set donné si au moins un groupe est en atari
+	Reçoit un set de groupes et renvoie un booléen
+
+	"""
+	for group in groups:
+		if group.state == 1:
+			return True
+	return False
+
 def not_in_atari(groups):
 	""" Vérifie dans un set donné si au moins un groupe n'est pas en atari
 	Reçoit un set de groupes et renvoie un booléen

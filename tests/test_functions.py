@@ -38,6 +38,8 @@ group3_w = Group(game, 'w', group6)
 
 groups = set()
 groups.update([group1_b, group2_b, group3_b, group1_w, group2_w, group3_w])
+for group in groups:
+	group.update_state(game)
 
 
 def test_point_is_empty():
@@ -65,6 +67,11 @@ def test_has_groups():
 	assert has_groups(game, groups, 'b', (6, 4)) == {group1_b}
 	assert has_groups(game, groups, 'w', (4, 3)) == {group1_w, group2_w}
 	assert has_groups(game, groups, 'w', (4, 5)) == set()
+
+def test_in_atari():
+	assert in_atari({group3_b}) == True
+	assert in_atari({group1_b, group2_b, group3_b}) == True
+	assert in_atari({group2_w, group3_w}) == False
 
 def test_not_in_atari():
 	assert not_in_atari({group3_b}) == False
