@@ -10,20 +10,12 @@ class Game:
 		self.board = [['.'] * self.size for i in range(self.size)]
 				
 	def add_stone(self, color, position):
-		if color == 'b':
-			self.board[position[1]][position[0]] = 'B'
-		else:
-			self.board[position[1]][position[0]] = 'W'
+		self.board[position[1]][position[0]] = color.upper()
 
 	def remove_group(self, stones_position):
-		for stone_position in stones_position:
-			self.board[stone_position[1]][stone_position[0]] = '.'
+		for point in stones_position:
+			self.board[point[1]][point[0]] = '.'
 
 	def __str__(self): # Méthode temporaire, à supprimer lors de la mise en place de l'interface graphique
 		""" Affiche le contenu de l'attribut board, représentant le plateau de jeu """
-		printed_board = ""
-		for line in self.board:
-			for chara in line:
-				printed_board += " " + chara
-			printed_board += "\n"
-		return printed_board
+		return "\n".join(" ".join(point for point in row) for row in self.board)

@@ -10,8 +10,6 @@ class Group:
 		self.color = color
 		self.stones = stones
 		self.state = 5
-		# On met à jour le plateau de jeu en ajoutant la nouvelle pierre, dont les coordonnées sont dans le premier tuple de "stones"
-		game.add_stone(self.color, self.stones[0])
 
 	def update_state(self, game):
 		""" Mets à jour l'attribut "state" du groupe
@@ -26,10 +24,9 @@ class Group:
 		"""
 		# Utilisation d'un set pour recenser les cases adjacentes vides en évitant les doublons
 		free_points = set()
-		for stone in self.stones:
-			adjacent_liberties = examine_adjacent_points(game, '.', stone)
-			for liberty in adjacent_liberties:
-				free_points.add(liberty)
+		adjacent_liberties = (examine_adjacent_points(game, '.', stone) for stone in self.stones)
+		for liberty in adjacent_liberties:
+			free_points.update(liberty)
 		liberties = len(free_points)
 
 		# Mise à jour de l'attribut state

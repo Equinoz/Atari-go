@@ -48,9 +48,7 @@ def has_groups(game, groups, color, position):
 	stones = examine_adjacent_points(game, color, position)
 	adjacent_groups = set()
 	for stone in stones:
-		for group in groups:
-			if stone in group.stones:
-				adjacent_groups.add(group)
+		adjacent_groups.update(group for group in groups if stone in group.stones)
 	return adjacent_groups
 
 def in_atari(groups):
