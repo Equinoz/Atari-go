@@ -1,0 +1,12 @@
+""" Constantes du programme Atari-go """
+
+STONE_WIDTH = 34
+BOARD_SIZE = 13
+HOSHIS = [(3,3), (9,3), (6,6), (3,9), (9,9)]
+BORDER = 65
+LINE_WIDTH = 2
+TITLE = "Atari-go"
+
+INTERVAL = STONE_WIDTH + 4
+GRID_WIDTH = INTERVAL * (BOARD_SIZE - 1)
+BOARD_WIDTH = GRID_WIDTH + BORDER * 2
