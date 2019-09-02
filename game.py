@@ -15,7 +15,3 @@ class Game:
 	def remove_group(self, stones_position):
 		for point in stones_position:
 			self.board[point[1]][point[0]] = '.'
-
-	def __str__(self): # Méthode temporaire, à supprimer lors de la mise en place de l'interface graphique
-		""" Affiche le contenu de l'attribut board, représentant le plateau de jeu """
-		return "\n".join(" ".join(point for point in row) for row in self.board)

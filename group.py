@@ -15,11 +15,12 @@ class Group:
 		""" Mets à jour l'attribut "state" du groupe
 		Reçoit une partie "game"
 		Définition des différents états du groupe:
+		5: couleur gagnante
 		4: au moins deux fois plus de libertés que de pierres composant le groupe
 		3: entre deux fois et une fois plus de libertés que de pierres composant le groupe
 		2: moins de libertés que de pierres composant le groupe
 		1: plus qu'une seule liberté (groupe en atari)
-		0: groupe capturé
+		0: groupe capturé / couleur perdante
 
 		"""
 		# Utilisation d'un set pour recenser les cases adjacentes vides en évitant les doublons

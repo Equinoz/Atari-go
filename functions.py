@@ -5,10 +5,7 @@ def point_is_empty(game, position):
 	Reçoit une partie, un tuple de coordonnées et renvoie un booléen
 
 	"""
-	if game.board[position[1]][position[0]] == '.':
-		return True
-	else:
-		return False
+	return True if game.board[position[1]][position[0]] == '.' else False
 
 def examine_adjacent_points(game, character, position):
 	""" Vérifie la présence d'un type d'élément donné sur les intersections adjacentes
@@ -35,10 +32,7 @@ def has_liberties(game, position):
 
 	"""
 	liberties = examine_adjacent_points(game, '.', position)
-	if len(liberties) > 0:
-		return True
-	else:
-		return False
+	return True if len(liberties) > 0 else False
 
 def has_groups(game, groups, color, position):
 	""" Vérifie la présence de groupes adjacents à une position donnée

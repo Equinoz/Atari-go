@@ -6,4 +6,6 @@ En effet, les règles du jeu de go sont particulièrement simples, mais la profo
 Ce programme se propose de représenter de façon très visuelle les menaces qui pèsent sur les différents groupes de pierres en fonction des libertés qu'il leur reste.
 Chaque joueur pose tout à tour une pierre (pion) à n'importe quelle intersection du goban (plateau de go). Noir commence. Le premier des deux joueurs qui parvient à capturer une pierre ou un groupe de pierre adverse gagne.
 
+Une pierre ou un groupe de pierre est capturé lorsque toutes ses intersections adjacentes sont occupées par des pierres adverses (les diagonales ne sont pas prises en compte)
+
 Pour en savoir plus sur les règles de capture au go: https://fr.m.wikipedia.org/wiki/Atari_(go)
